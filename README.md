@@ -9,6 +9,14 @@ Two UEVR Lua scripts for **Star Wars Galactic Racer** (UE 5.7):
 
 Each script works on its own, so you can install one or both.
 
+## ⬇️ Download
+
+**[Download SWGR-UEVR-scripts.zip](https://github.com/TeamSnaxks/Star-Wars-Galactic-Racer-UEVR/releases/latest/download/SWGR-UEVR-scripts.zip)**
+
+You don't need a GitHub account. The link always gives you the latest version. Older versions and change notes are on the [Releases page](https://github.com/TeamSnaxks/Star-Wars-Galactic-Racer-UEVR/releases).
+
+**Quick install:** open the zip and copy its `scripts` folder into `%APPDATA%\UnrealVRMod\SWGR-Win64-Shipping`. If Windows asks, choose to merge the folders. Then restart the game with UEVR. The full steps are below.
+
 ---
 
 ## Installing into your UEVR profile
@@ -61,6 +69,56 @@ This script lowers VRAM use and GPU load by changing a few Unreal renderer setti
 - **Cvars page:** a value you set on UEVR's **Cvars** page always wins. The script stops fighting it and shows "held by Cvars page".
 - **In-game graphics changes:** after changing graphics settings in the game, restart the game. Values a script has set stay locked until a restart.
 - **Freeze troubleshooting:** every change is written to the UEVR log *before* it's sent, as lines starting with `[SWGR VRAM SAVER SV19] sending ...`. If the game freezes, the last line shows which change caused it.
+
+### Recommended settings for Ultra Performance
+
+Ultra Performance turns off Lumen GI, so the picture gets darker and flatter. These are the settings I use to bring it back. Set in-game **Global Illumination** to Medium, High or Epic.
+
+**1. VRAM saver panel** (Script UI → SWGR - VRAM saver)
+
+| Setting | Value |
+|---|---|
+| Enable VRAM Saver | on |
+| Lumen reflections off | on |
+| Lumen surface cache | 25% |
+| Shadow page pool | 25% |
+| Compute shader | on |
+| Radius scale | 4.10 |
+| Ultra Performance | On |
+
+![VRAM saver panel with Ultra Performance on](images/vram_saver_ultra_performance.png)
+
+**2. VR picture** (Script UI → STAR WARS Galactic Racer VR → VR picture for every track)
+
+This menu belongs to the SWGR VR profile's own cockpit script, not to these scripts.
+
+| Setting | Value |
+|---|---|
+| Brightness | -1.1 |
+| Bloom | 0 % |
+| Colour strength (saturation) | 100 % |
+| Contrast | 105 % |
+
+![VR picture settings](images/vr_picture_settings.png)
+
+**3. UEVR Cvars page** (Console/CVars)
+
+`r.AmbientOcclusionLevels 1` is needed, because it unlocks the AMBIENT OCCLUSION section of the VRAM saver. The rest is my full Cvars page for reference. `r.ScreenPercentage` depends on your GPU and headset.
+
+| Cvar | Value | | Cvar | Value |
+|---|---|---|---|---|
+| r.AmbientOcclusionLevels | 1 | | r.Color.Max | 1.206 |
+| r.DefaultFeature.AmbientOcclusion | 1 | | r.Color.Mid | 0.450 |
+| r.DepthOfFieldQuality | 0 | | r.Color.Min | 0.000 |
+| r.LightCulling.Quality | 1 | | r.MotionBlur.Max | 0.000 |
+| r.MaxAnisotropy | 16 | | r.SceneColorFringe.Max | 0.000 |
+| r.MotionBlurQuality | 0 | | r.ScreenPercentage | 58 |
+| r.PostProcessing.PropagateAlpha | 1 | | r.Tonemapper.Sharpen | 0.780 |
+| r.SceneColorFringeQuality | 0 | | r.TonemapperGamma | 0.000 |
+| r.SubsurfaceScattering | 1 | | r.Upscale.Softness | 1.000 |
+| r.TemporalAA.Upsampling | 1 | | r.Upscale.Quality | 3 |
+
+![UEVR Cvars page](images/cvars_settings.png)
 
 ---
 
