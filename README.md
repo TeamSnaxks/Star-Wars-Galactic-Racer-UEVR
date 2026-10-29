@@ -15,7 +15,7 @@ Each script works on its own, so you can install one or both.
 
 You don't need a GitHub account. The link always gives you the latest version.
 
-**Quick install:** open the zip, then open the `Star-Wars-Galactic-Racer-UEVR-main` folder inside it. Copy the `scripts` folder from there into `%APPDATA%\UnrealVRMod\SWGR-Win64-Shipping`. If Windows asks, choose to merge the folders. Then restart the game with UEVR. The full steps are below.
+**Quick install:** open the zip, then open the `Star-Wars-Galactic-Racer-UEVR-main` folder inside it. Copy `swgr_vram_saver.lua` and `swgr_hud_toggle.lua` from its `scripts` folder into `%APPDATA%\UnrealVRMod\SWGR-Win64-Shipping\scripts`. Then restart the game with UEVR. The full steps are below.
 
 ---
 
