@@ -90,8 +90,6 @@ Ultra Performance turns off Lumen GI, so the picture looks lighter and more bare
 
 **2. VR picture** (Script UI → STAR WARS Galactic Racer VR → VR picture for every track)
 
-This menu belongs to the SWGR VR profile's own cockpit script, not to these scripts.
-
 | Setting | Value |
 |---|---|
 | Brightness | -1.1 |
