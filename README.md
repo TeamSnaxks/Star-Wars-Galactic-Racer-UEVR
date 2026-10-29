@@ -11,11 +11,11 @@ Each script works on its own, so you can install one or both.
 
 ## ⬇️ Download
 
-**[Download SWGR-UEVR-scripts.zip](https://github.com/TeamSnaxks/Star-Wars-Galactic-Racer-UEVR/releases/latest/download/SWGR-UEVR-scripts.zip)**
+**[Download the scripts (zip)](https://github.com/TeamSnaxks/Star-Wars-Galactic-Racer-UEVR/archive/refs/heads/main.zip)**
 
-You don't need a GitHub account. The link always gives you the latest version. Older versions and change notes are on the [Releases page](https://github.com/TeamSnaxks/Star-Wars-Galactic-Racer-UEVR/releases).
+You don't need a GitHub account. The link always gives you the latest version.
 
-**Quick install:** open the zip and copy its `scripts` folder into `%APPDATA%\UnrealVRMod\SWGR-Win64-Shipping`. If Windows asks, choose to merge the folders. Then restart the game with UEVR. The full steps are below.
+**Quick install:** open the zip, then open the `Star-Wars-Galactic-Racer-UEVR-main` folder inside it. Copy the `scripts` folder from there into `%APPDATA%\UnrealVRMod\SWGR-Win64-Shipping`. If Windows asks, choose to merge the folders. Then restart the game with UEVR. The full steps are below.
 
 ---
 
