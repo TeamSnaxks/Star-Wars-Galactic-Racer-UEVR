@@ -4,7 +4,7 @@ Two UEVR Lua scripts for **Star Wars Galactic Racer** (UE 5.7):
 
 | Script | Version | Panel name in UEVR |
 |---|---|---|
-| `swgr_vram_saver.lua` | SV19 | **SWGR - VRAM saver** |
+| `swgr_vram_saver.lua` | SV20 | **SWGR - VRAM saver** |
 | `swgr_hud_toggle.lua` | HT29 | **SWGR - HUD toggle** |
 
 Each script works on its own, so you can install one or both.
@@ -41,7 +41,7 @@ To turn off a script without deleting it, rename it to end in `.lua.disabled`.
 
 ---
 
-## SWGR - VRAM saver (SV19)
+## SWGR - VRAM saver (SV20)
 
 This script lowers VRAM use and GPU load by changing a few Unreal renderer settings. It always puts back the game's own values when you untick an option or reset scripts.
 
@@ -61,6 +61,7 @@ This script lowers VRAM use and GPU load by changing a few Unreal renderer setti
 - **GI PERFORMANCE (experimental)**
   - *Ultra Performance*: sets `r.Lumen.DiffuseIndirect.Allow 0`. This turns off Lumen GI the same way in-game GI Low does, while keeping your other GI-level settings.
   - It only works with in-game Global Illumination set to Medium, High or Epic.
+  - At startup it switches about 1 second after the other changes, still in the main menu. Sent right after them, it froze the game with SWGR VR Cockpit v2.2.0.
   - You can switch it during play, but frame generation may need a moment to resync. Restarting is safer.
 - **Advanced Monitor:** shows read-only game, target and live values, whether Lumen GI and reflections are running, and the most recent changes.
 
@@ -68,7 +69,7 @@ This script lowers VRAM use and GPU load by changing a few Unreal renderer setti
 
 - **Cvars page:** a value you set on UEVR's **Cvars** page always wins. The script stops fighting it and shows "held by Cvars page".
 - **In-game graphics changes:** after changing graphics settings in the game, restart the game. Values a script has set stay locked until a restart.
-- **Freeze troubleshooting:** every change is written to the UEVR log *before* it's sent, as lines starting with `[SWGR VRAM SAVER SV19] sending ...`. If the game freezes, the last line shows which change caused it.
+- **Freeze troubleshooting:** every change is written to the UEVR log *before* it's sent, as lines starting with `[SWGR VRAM SAVER SV20] sending ...`. If the game freezes, the last line shows which change caused it.
 
 ### Recommended settings for Ultra Performance
 
