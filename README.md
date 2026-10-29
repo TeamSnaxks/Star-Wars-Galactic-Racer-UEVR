@@ -21,7 +21,7 @@ You don't need a GitHub account. The link always gives you the latest version.
 
 ## Installing into your UEVR profile
 
-1. **Run the game with UEVR once** so that a profile exists for it.
+1. **Get the latest profile.** Go to the Star Wars Galactic Racer game channel in the Flat2VR Discord to download the latest UEVR profile.
 2. **Open the profile folder.** In the UEVR menu, click **Open Global Dir**, then open `SWGR-Win64-Shipping`. Alternatively, press `Win + R` and paste:
    ```
    %APPDATA%\UnrealVRMod\SWGR-Win64-Shipping
