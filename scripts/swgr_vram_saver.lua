@@ -1,4 +1,4 @@
--- SWGR VRAM Saver (SV19) - Star Wars Galactic Racer (UE 5.7), UEVR panel "SWGR - VRAM saver".
+-- SWGR VRAM Saver (SV20) - Star Wars Galactic Racer (UE 5.7), UEVR panel "SWGR - VRAM saver".
 -- Settings: data/swgr_vram_saver_sv9.json (same file since SV9; older SV5-SV8 settings taken over once).
 --
 -- "Enable VRAM Saver" switches the whole panel.
@@ -19,14 +19,21 @@
 --       (cached) instead of every frame.
 -- SV19: "Lumen reflections off" checkbox (from Bodycam VS2) in MEMORY: r.Lumen.Reflections.Allow 0 only -
 --       Lumen GI and in-game Global Illumination are untouched. Game value captured fresh each launch.
+-- SV20: Ultra Performance waits until ULTRA_GAP (5 s) after the last other change before it switches.
+--       With ody's cockpit v2.2.0, Ultra saved as On hung the game in the main menu: it was sent 0.5 s after
+--       the surface cache / shadow pool changes ('sending r.Lumen.DiffuseIndirect.Allow 0' never returned;
+--       v2.1.1 fine). Switched on by hand a few seconds after the start batch it works (user tested
+--       2026-10-29), so it still switches in the main menu - just after the others have settled.
 -- Safety (30 s is required: 20 s froze on 2026-10-27 - memory changes landed during the intro movies):
 -- nothing changes in the first 30 s after loading (changes during UEVR's headset setup froze the
 -- game at start); then one cvar change per 0.5 s. A cvar on the UEVR Cvars page wins ("held").
 -- Values a script sets stay locked until restart: after changing in-game graphics, restart the game.
 -- UEVR imgui.combo lists entries in Lua table order and returns the key -> 1-based item tables only.
 
-local TAG = '[SWGR VRAM SAVER SV19] '
+local TAG = '[SWGR VRAM SAVER SV20] '
 local START_DELAY = 30.0
+local ULTRA_GAP = 5.0                    -- Ultra Performance: seconds after the last other change before it switches
+local ULTRA_CVAR = 'r.Lumen.DiffuseIndirect.Allow'
 local SAVE_FILE = 'swgr_vram_saver_sv9.json'
 local OLD_FILE = 'swgr_vram_saver_sv5.json'
 local api = uevr.api
@@ -38,7 +45,8 @@ local DEFAULTS = {master = true, ao_compute = false, ao_radius = 1.0, reflection
 local S = {sel = {}, stock = {}}
 for k, v in pairs(DEFAULTS) do S[k] = v end
 local st = {status = {}, failed = {}, reverts = {}, lastOk = {}, frozen = {}, clock = 0, nextCheck = 0,
-    saveDirty = false, saveTimer = 0, stopped = false, lastError = nil, recent = {}, writes = 0}
+    saveDirty = false, saveTimer = 0, stopped = false, lastError = nil, recent = {}, writes = 0,
+    lastWriteT = -1e9}                   -- clock of the last change sent other than Ultra Performance
 
 -------------------------------------------------------------------------------------------------
 -- cvar rows. sel 0 = the game's value.
@@ -126,6 +134,7 @@ local function write(name, isFloat, value)
     local ok, err = pcall(function() api:execute_command(name .. ' ' .. fmt(value)) end)
     current = read_name(name, isFloat)
     st.writes = st.writes + 1
+    if name ~= ULTRA_CVAR then st.lastWriteT = st.clock end
     table.insert(st.recent, 1, string.format('%6.0f s  %s %s%s', st.clock, name, fmt(value),
         (ok and same(current, value)) and '' or '  (did not stick)'))
     if #st.recent > 8 then table.remove(st.recent) end
@@ -221,7 +230,23 @@ local function apply_rows()
     for _, r in ipairs(ROWS) do
         local sel = active_sel(r)
         local status
-        if sel > 0 then
+        -- Ultra Performance (SV20): not right on top of other changes - it waits ULTRA_GAP s after the last one
+        local ultraWait = false
+        if r.id == 'ultra' and st.clock - st.lastWriteT < ULTRA_GAP then
+            local c = r.cvars[1]
+            local want = nil
+            if sel > 0 then want = 0
+            elseif S.stock[c] ~= nil then want = ((r.needsGI and (gi_level() or 0) < 1) and 0) or S.stock[c] end
+            local now = read_name(c, r.float)
+            if want ~= nil and now ~= nil and not same(now, want) and not st.frozen[c] then
+                ultraWait = true
+                st.pending = true
+                status = string.format('switches %d s after the other changes', math.ceil(ULTRA_GAP - (st.clock - st.lastWriteT)))
+            end
+        end
+        if ultraWait then
+            -- (left as it is this round)
+        elseif sel > 0 then
             for _, c in ipairs(r.cvars) do
                 if S.stock[c] == nil then
                     local v = read_name(c, r.float)
@@ -407,7 +432,7 @@ monitor = function()
 end
 
 local function draw()
-    imgui.text('VRAM SAVER (SV19)')
+    imgui.text('VRAM SAVER (SV20)')
     local c, v = imgui.checkbox('Enable VRAM Saver', S.master)
     if c then S.master = v; changed() end
     dim('      Turns on everything below. Untick = game values.')
