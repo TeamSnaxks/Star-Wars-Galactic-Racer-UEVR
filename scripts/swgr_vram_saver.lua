@@ -19,7 +19,7 @@
 --       (cached) instead of every frame.
 -- SV19: "Lumen reflections off" checkbox (from Bodycam VS2) in MEMORY: r.Lumen.Reflections.Allow 0 only -
 --       Lumen GI and in-game Global Illumination are untouched. Game value captured fresh each launch.
--- SV20: Ultra Performance waits until ULTRA_GAP (5 s) after the last other change before it switches.
+-- SV20: Ultra Performance waits until ULTRA_GAP (1 s) after the last other change before it switches.
 --       With ody's cockpit v2.2.0, Ultra saved as On hung the game in the main menu: it was sent 0.5 s after
 --       the surface cache / shadow pool changes ('sending r.Lumen.DiffuseIndirect.Allow 0' never returned;
 --       v2.1.1 fine). Switched on by hand a few seconds after the start batch it works (user tested
@@ -32,7 +32,7 @@
 
 local TAG = '[SWGR VRAM SAVER SV20] '
 local START_DELAY = 30.0
-local ULTRA_GAP = 5.0                    -- Ultra Performance: seconds after the last other change before it switches
+local ULTRA_GAP = 1.0                   -- Ultra Performance: seconds after the last other change before it switches
 local ULTRA_CVAR = 'r.Lumen.DiffuseIndirect.Allow'
 local SAVE_FILE = 'swgr_vram_saver_sv9.json'
 local OLD_FILE = 'swgr_vram_saver_sv5.json'
