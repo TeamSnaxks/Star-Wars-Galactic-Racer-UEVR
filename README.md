@@ -143,3 +143,4 @@ Press **L3** (left-stick click) during a race to fade the race HUD out or in. Yo
 
 - [UEVR](https://github.com/praydog/UEVR) with Lua scripting. A recent nightly build is recommended.
 - Star Wars Galactic Racer (PC, `SWGR-Win64-Shipping.exe`).
+- A UEVR profile for Star Wars Galactic Racer. Join the Flat2VR Discord for the latest.
