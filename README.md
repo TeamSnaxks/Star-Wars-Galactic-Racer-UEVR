@@ -72,7 +72,7 @@ This script lowers VRAM use and GPU load by changing a few Unreal renderer setti
 
 ### Recommended settings for Ultra Performance
 
-Ultra Performance turns off Lumen GI, so the picture gets darker and flatter. These are the settings I use to bring it back. Set in-game **Global Illumination** to Medium, High or Epic.
+Ultra Performance turns off Lumen GI, so the picture looks lighter and more bare. These are the settings I use to bring back depth and contrast. Set in-game **Global Illumination** to Medium, High or Epic.
 
 **1. VRAM saver panel** (Script UI → SWGR - VRAM saver)
 
